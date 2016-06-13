@@ -14,4 +14,12 @@ public static class Toolbox {
 
 		UnityEngine.Debug.Log (tag + ": " + message);
 	}
+
+
+	public static GameObject Create(string resourceName) {
+		GameObject newGO = Resources.Load<GameObject>(resourceName);
+		newGO = GameObject.Instantiate<GameObject>(newGO);
+		newGO.name = resourceName;
+		return newGO;
+	}
 }

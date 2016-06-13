@@ -15,6 +15,7 @@ public class Hero : MonoBehaviour {
 
 	void Awake() {
 		tGroundCheck = transform.Find("GroundCheck");
+
 		assistant = new Assistant(this);
 		Instance = this;
 	}

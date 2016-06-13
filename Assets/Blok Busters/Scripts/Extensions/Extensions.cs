@@ -2,15 +2,24 @@
 using System.Collections;
 
 public static class Extensions {
+	public static void SetPos(this GameObject gameObject, Transform transform) {
+		Toolbox.Log("SetPos() - (x, y, z): (" + transform.position.x + ", " + transform.position.y + ", " + transform.position.z + ")");
+		gameObject.SetPos(transform.position.x, transform.position.y, transform.position.z);
+	}
+
+	public static void SetPos(this GameObject gameObject, float posX, float posY, float posZ) {
+		gameObject.transform.SetPos(posX, posY, posZ);
+	}
+
 	public static void SetPos(this MonoBehaviour monoBehvaiour, float posX, float posY, float posZ) {
 		monoBehvaiour.transform.SetPos(posX, posY, posZ);
 	}
 
 	public static void SetPos(this Transform transform, float posX, float posY, float posZ) {
 		Vector3 positionTemp = transform.position;
-		positionTemp.x = 0;
-		positionTemp.y = 0;
-		positionTemp.z = 0;
+		positionTemp.x = posX;
+		positionTemp.y = posY;
+		positionTemp.z = posZ;
 		transform.position = positionTemp;
 	}
 
