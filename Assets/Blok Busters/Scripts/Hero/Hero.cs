@@ -1,23 +1,39 @@
 ﻿using UnityEngine;
 using System.Collections;
 
+public enum Player {
+	Player1,
+	Player2
+}
+
 public class Hero : MonoBehaviour {
-
-	public static Hero Instance;
-
-	HeroState_Base heroState = HeroStateMove.Instance;
-	Hero.Assistant assistant;
 
 	[SerializeField] private LayerMask whatIsGround;
 	private Transform tGroundCheck;    // A position marking where to check if the player is grounded.
 	const float groundedRadius = .2f; // Radius of the overlap circle to determine if grounded
 	private bool isGrounded; 
 
+	HeroState_Base heroState;
+
+	public Player player;
+	public Controller_Base controller;
+
+	Hero.Assistant assistant;
+
 	void Awake() {
 		tGroundCheck = transform.Find("GroundCheck");
 
+		heroState = new HeroStateMove();
+
+		if (player == Player.Player1) {
+			controller = new ControllerPlayer1();
+		} else if (player == Player.Player2) {
+			controller = new ControllerPlayer2();
+		} else {
+			controller = new ControllerPlayer1();
+		}
+
 		assistant = new Assistant(this);
-		Instance = this;
 	}
 
 	void Start () {
@@ -60,6 +76,7 @@ public class Hero : MonoBehaviour {
 		public Rigidbody2D Rigidbody2D { get; private set; }
 		public Transform Transform { get; private set; }
 		public bool IsGrounded { get { return hero.isGrounded;} }
+		public Controller_Base Controller { get { return hero.controller; } }
 
 		public Assistant(Hero hero) {
 			this.hero = hero;

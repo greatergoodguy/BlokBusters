@@ -18,7 +18,7 @@ public class SeasonGame : Season_Base {
 	public override void Enter() {}
 
 	public override void Update() {
-		if (ControllerPlayer1.IsKeyDownReset()) {
+		if (Input.GetKeyDown(KeyCode.R)) {
 			HeroCharacter.Instance.SetPos(0, 0, 0);
 		}
 	}
