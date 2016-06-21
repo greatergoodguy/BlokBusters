@@ -3,7 +3,8 @@ using System.Collections;
 
 public enum Player {
 	Player1,
-	Player2
+	Player1Keyboard,
+	Player2,
 }
 
 public class Hero : MonoBehaviour {
@@ -15,6 +16,10 @@ public class Hero : MonoBehaviour {
 
 	HeroState_Base heroState;
 
+	public HeroState_Base stateMove = new HeroStateMove();
+	public HeroState_Base stateJump = new HeroStateJump();
+	public HeroState_Base stateAttack = new HeroStateAttack();
+
 	public Player player;
 	public Controller_Base controller;
 
@@ -23,10 +28,12 @@ public class Hero : MonoBehaviour {
 	void Awake() {
 		tGroundCheck = transform.Find("GroundCheck");
 
-		heroState = new HeroStateMove();
+		heroState = stateMove;
 
 		if (player == Player.Player1) {
 			controller = new ControllerPlayer1();
+		} else if (player == Player.Player1Keyboard) {
+			controller = new ControllerPlayer1Keyboard();
 		} else if (player == Player.Player2) {
 			controller = new ControllerPlayer2();
 		} else {
@@ -68,21 +75,37 @@ public class Hero : MonoBehaviour {
 		heroState.FixedUpdate();
 	}
 
+	void ChangeState(HeroState_Base stateNew) {
+		heroState.Exit();
+		Toolbox.Log(heroState.GetType().Name + ": Exit");
+		heroState = stateNew;
+		heroState.Enter(assistant);
+		Toolbox.Log(heroState.GetType().Name + ": Enter");
+	}
 
 	public class Assistant {
 
 		Hero hero;
 
+		public Hero Hero { get { return hero; } }
 		public Rigidbody2D Rigidbody2D { get; private set; }
 		public Transform Transform { get; private set; }
 		public bool IsGrounded { get { return hero.isGrounded;} }
 		public Controller_Base Controller { get { return hero.controller; } }
+
+		public bool IsFacingRight { get; set; }
 
 		public Assistant(Hero hero) {
 			this.hero = hero;
 
 			Rigidbody2D = hero.GetComponent<Rigidbody2D>();
 			Transform = hero.GetComponent<Transform>();
+
+			IsFacingRight = true;
+		}
+
+		public void ChangeState(HeroState_Base stateNew) {
+			hero.ChangeState(stateNew);
 		}
 	}
 }

@@ -11,6 +11,10 @@ public class ControllerPlayer2 : Controller_Base{
 	}
 
 	public override float GetAxisHorizontal() {
-		return Input.GetAxis("Horizontal P2");
+		float axis = Input.GetAxis("Horizontal P2");
+		if (Toolbox.NearlyEqual(axis, 0, 0.5f)) {
+			return 0;
+		}
+		return axis;
 	}
 }

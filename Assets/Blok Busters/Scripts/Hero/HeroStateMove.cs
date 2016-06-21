@@ -5,61 +5,31 @@ using UnityStandardAssets.CrossPlatformInput;
 public class HeroStateMove : HeroState_Base {
 
 	[SerializeField] private float maxSpeed = 10f;
-	[SerializeField] private float jumpForce = 400f;
-
-	private bool isFacingRight = true;
-
-	private Transform tPosProjectLaunch;
-
-	public override void Enter(Hero.Assistant assistant) {
-		base.Enter(assistant);
-
-		tPosProjectLaunch = Assistant.Transform.Find("Pos Projectile Launch");
-	}
+	[SerializeField] private float jumpForce = 1000f;
 
 	public override void Update() {
 		if (Assistant.Controller.IsKeyDownJump() && Assistant.IsGrounded) {
-			Assistant.Rigidbody2D.AddForce(new Vector2(0f, jumpForce));
-			Toolbox.Log("jumpForce = " + jumpForce);
+			Assistant.ChangeState(Assistant.Hero.stateJump);
 		}
 
 		if (Assistant.Controller.IsKeyDownAttack()) {
-			FireBoomBubble();
-			Toolbox.Log("attack");
+			Assistant.ChangeState(Assistant.Hero.stateAttack);
 		}
-	}
 
-	public void FireBoomBubble() {
-		GameObject goBoomBubble = Toolbox.Create("Projectile Boom Bubble");
 
-		goBoomBubble.AddComponent<GeneSuicide>();
-
-		GeneVelocity geneVelocity = goBoomBubble.AddComponent<GeneVelocity>();
-		float speedX = 12;
-		float velocityX = isFacingRight ? speedX : speedX * -1;
-		geneVelocity.SetVelocity(velocityX, 0);
-
-		Vector3 vLocalScaleBoomBubble = goBoomBubble.transform.localScale;
-		if(!isFacingRight) { vLocalScaleBoomBubble *= -1;}
-		goBoomBubble.transform.localScale = vLocalScaleBoomBubble;
-
-		goBoomBubble.SetPos(tPosProjectLaunch);
-	}
-
-	public override void FixedUpdate() {
 		float axisHorizontal = Assistant.Controller.GetAxisHorizontal();
 		Assistant.Rigidbody2D.velocity = new Vector2(axisHorizontal * maxSpeed, Assistant.Rigidbody2D.velocity.y);
-
-		if (axisHorizontal > 0 && !isFacingRight) {
+		//Toolbox.Log("Update() - axisHorizontal: " + axisHorizontal);
+		if (axisHorizontal > 0 && !Assistant.IsFacingRight) {
 			Flip();
 		}
-		else if (axisHorizontal < 0 && isFacingRight) {			
+		else if (axisHorizontal < 0 && Assistant.IsFacingRight) {			
 			Flip();
 		}
 	}
-
+		
 	private void Flip() {
-		isFacingRight = !isFacingRight;
+		Assistant.IsFacingRight = !Assistant.IsFacingRight;
 
 		Vector3 localScale = Assistant.Transform.localScale;
 		localScale.x *= -1;

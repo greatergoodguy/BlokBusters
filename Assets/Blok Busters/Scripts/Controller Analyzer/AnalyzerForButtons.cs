@@ -3,7 +3,7 @@ using UnityEngine.UI;
 using System.Collections;
 using System;
 
-public class ControllerAnalyzerUI : MonoBehaviour {
+public class AnalyzerForButtons : MonoBehaviour {
 
 	Text uiText;
 
@@ -22,5 +22,7 @@ public class ControllerAnalyzerUI : MonoBehaviour {
 				uiText.text = uiString;
 			}
 		}
+
+
 	}
 }
