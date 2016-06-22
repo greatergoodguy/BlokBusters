@@ -5,46 +5,51 @@ public enum Player {
 	Player1,
 	Player1Keyboard,
 	Player2,
+	Player2Keyboard,
 }
 
 public class Hero : MonoBehaviour {
+	
+	public Rigidbody2D Rigidbody2D { get; private set; }
+	public Transform Transform { get; private set; }
+	public bool IsGrounded { get; private set; }
+	public Controller_Base Controller { get; private set; }
+	
+	public bool IsFacingRight { get; set; }
 
 	[SerializeField] private LayerMask whatIsGround;
 	private Transform tGroundCheck;    // A position marking where to check if the player is grounded.
 	const float groundedRadius = .2f; // Radius of the overlap circle to determine if grounded
-	private bool isGrounded; 
 
 	HeroState_Base heroState;
 
 	public HeroState_Base stateMove = new HeroStateMove();
 	public HeroState_Base stateJump = new HeroStateJump();
 	public HeroState_Base stateAttack = new HeroStateAttack();
+	public HeroState_Base stateHurt = new HeroStateHurt();
 
 	public Player player;
-	public Controller_Base controller;
-
-	Hero.Assistant assistant;
 
 	void Awake() {
 		tGroundCheck = transform.Find("GroundCheck");
 
 		heroState = stateMove;
 
-		if (player == Player.Player1) {
-			controller = new ControllerPlayer1();
-		} else if (player == Player.Player1Keyboard) {
-			controller = new ControllerPlayer1Keyboard();
-		} else if (player == Player.Player2) {
-			controller = new ControllerPlayer2();
-		} else {
-			controller = new ControllerPlayer1();
-		}
+		Rigidbody2D = GetComponent<Rigidbody2D>();
+		Transform = GetComponent<Transform>();
+		IsGrounded = false;
+		
+		IsFacingRight = true;
 
-		assistant = new Assistant(this);
+		if (player == Player.Player1) 				{ Controller = new ControllerPlayer1();} 
+		else if (player == Player.Player1Keyboard) 	{ Controller = new ControllerPlayer1Keyboard();} 
+		else if (player == Player.Player2) 			{ Controller = new ControllerPlayer2();} 
+		else if (player == Player.Player2Keyboard) 	{ Controller = new ControllerPlayer2Keyboard();} 
+		else 										{ Controller = new ControllerPlayer1();}
 	}
 
 	void Start () {
-		heroState.Enter(assistant);
+		heroState.Enter(this);
 		Toolbox.Log(heroState.GetType().Name + ": Enter");
 	}
 
@@ -55,57 +60,41 @@ public class Hero : MonoBehaviour {
 			heroState.Exit();
 			Toolbox.Log(heroState.GetType().Name + ": Exit");
 			heroState = heroState.GetNextState();
-			heroState.Enter(assistant);
+			heroState.Enter(this);
 			Toolbox.Log(heroState.GetType().Name + ": Enter");
 		}
 	}
 
 	void FixedUpdate() {
-		isGrounded = false;
+		IsGrounded = false;
 		// The player is grounded if a circlecast to the groundcheck position hits anything designated as ground
 		// This can be done using layers instead but Sample Assets will not overwrite your project settings.
 		Collider2D[] colliders = Physics2D.OverlapCircleAll(tGroundCheck.position, groundedRadius, whatIsGround);
 		for (int i = 0; i < colliders.Length; i++) {
 			if (colliders[i].gameObject != gameObject) {
-				isGrounded = true;
-				//Toolbox.Log("FixedUpdate: isGrounded = true");
+				IsGrounded = true;
 			}
 		}
 
 		heroState.FixedUpdate();
 	}
 
-	void ChangeState(HeroState_Base stateNew) {
+	void OnTriggerEnter2D(Collider2D other) {
+		Toolbox.Log("OnTriggerEnter2D: " + other.tag);
+		if (other.tag == "Hurtable") {
+			ChangeState(stateHurt);
+		}
+	}
+
+	public void ChangeState(HeroState_Base stateNew) {
 		heroState.Exit();
 		Toolbox.Log(heroState.GetType().Name + ": Exit");
 		heroState = stateNew;
-		heroState.Enter(assistant);
+		heroState.Enter(this);
 		Toolbox.Log(heroState.GetType().Name + ": Enter");
 	}
 
-	public class Assistant {
-
-		Hero hero;
-
-		public Hero Hero { get { return hero; } }
-		public Rigidbody2D Rigidbody2D { get; private set; }
-		public Transform Transform { get; private set; }
-		public bool IsGrounded { get { return hero.isGrounded;} }
-		public Controller_Base Controller { get { return hero.controller; } }
-
-		public bool IsFacingRight { get; set; }
-
-		public Assistant(Hero hero) {
-			this.hero = hero;
-
-			Rigidbody2D = hero.GetComponent<Rigidbody2D>();
-			Transform = hero.GetComponent<Transform>();
-
-			IsFacingRight = true;
-		}
-
-		public void ChangeState(HeroState_Base stateNew) {
-			hero.ChangeState(stateNew);
-		}
+	public void ChangeSprite(Sprite sprite) {
+		GetComponent<SpriteRenderer>().sprite = sprite;
 	}
 }

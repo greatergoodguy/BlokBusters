@@ -11,7 +11,7 @@ public class ControllerPlayer1Keyboard : Controller_Base {
 	}
 
 	public override float GetAxisHorizontal() {
-		float axis = Input.GetAxis("Horizontal");
+		float axis = Input.GetAxis("Horizontal P1 Keyboard");
 		return axis;
 	}
 }

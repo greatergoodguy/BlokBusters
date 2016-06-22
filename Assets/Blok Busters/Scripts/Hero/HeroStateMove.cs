@@ -8,31 +8,31 @@ public class HeroStateMove : HeroState_Base {
 	[SerializeField] private float jumpForce = 1000f;
 
 	public override void Update() {
-		if (Assistant.Controller.IsKeyDownJump() && Assistant.IsGrounded) {
-			Assistant.ChangeState(Assistant.Hero.stateJump);
+		if (Hero.Controller.IsKeyDownJump() && Hero.IsGrounded) {
+			Hero.ChangeState(Hero.stateJump);
 		}
 
-		if (Assistant.Controller.IsKeyDownAttack()) {
-			Assistant.ChangeState(Assistant.Hero.stateAttack);
+		if (Hero.Controller.IsKeyDownAttack()) {
+			Hero.ChangeState(Hero.stateAttack);
 		}
 
 
-		float axisHorizontal = Assistant.Controller.GetAxisHorizontal();
-		Assistant.Rigidbody2D.velocity = new Vector2(axisHorizontal * maxSpeed, Assistant.Rigidbody2D.velocity.y);
+		float axisHorizontal = Hero.Controller.GetAxisHorizontal();
+		Hero.Rigidbody2D.velocity = new Vector2(axisHorizontal * maxSpeed, Hero.Rigidbody2D.velocity.y);
 		//Toolbox.Log("Update() - axisHorizontal: " + axisHorizontal);
-		if (axisHorizontal > 0 && !Assistant.IsFacingRight) {
+		if (axisHorizontal > 0 && !Hero.IsFacingRight) {
 			Flip();
 		}
-		else if (axisHorizontal < 0 && Assistant.IsFacingRight) {			
+		else if (axisHorizontal < 0 && Hero.IsFacingRight) {			
 			Flip();
 		}
 	}
 		
 	private void Flip() {
-		Assistant.IsFacingRight = !Assistant.IsFacingRight;
+		Hero.IsFacingRight = !Hero.IsFacingRight;
 
-		Vector3 localScale = Assistant.Transform.localScale;
+		Vector3 localScale = Hero.Transform.localScale;
 		localScale.x *= -1;
-		Assistant.Transform.localScale = localScale;
+		Hero.Transform.localScale = localScale;
 	}
 }

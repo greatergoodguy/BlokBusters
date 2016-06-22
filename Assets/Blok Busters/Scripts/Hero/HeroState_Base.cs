@@ -3,10 +3,10 @@ using System.Collections;
 
 public abstract class HeroState_Base {
 
-	protected Hero.Assistant Assistant { get; private set; }
+	protected Hero Hero { get; private set; }
 
-	public virtual void Enter(Hero.Assistant assistant) {
-		this.Assistant = assistant;
+	public virtual void Enter(Hero hero) {
+		this.Hero = hero;
 	}
 	public virtual void Update() {}
 	public virtual void FixedUpdate() {}

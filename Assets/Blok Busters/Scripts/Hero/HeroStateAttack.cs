@@ -7,9 +7,9 @@ public class HeroStateAttack : HeroState_Base {
 
 	private Transform tPosProjectLaunch;
 
-	public override void Enter(Hero.Assistant assistant) {
-		base.Enter(assistant);
-		tPosProjectLaunch = Assistant.Transform.Find("Pos Projectile Launch");
+	public override void Enter(Hero hero) {
+		base.Enter(hero);
+		tPosProjectLaunch = Hero.Transform.Find("Pos Projectile Launch");
 		FireBoomBubble();
 	}
 
@@ -18,7 +18,7 @@ public class HeroStateAttack : HeroState_Base {
 	}
 
 	public override HeroState_Base GetNextState() {
-		return Assistant.Hero.stateMove;
+		return Hero.stateMove;
 	}
 
 	public void FireBoomBubble() {
@@ -28,11 +28,11 @@ public class HeroStateAttack : HeroState_Base {
 
 		GeneVelocity geneVelocity = goBoomBubble.AddComponent<GeneVelocity>();
 		float speedX = 12;
-		float velocityX = Assistant.IsFacingRight ? speedX : speedX * -1;
+		float velocityX = Hero.IsFacingRight ? speedX : speedX * -1;
 		geneVelocity.SetVelocity(velocityX, 0);
 
 		Vector3 vLocalScaleBoomBubble = goBoomBubble.transform.localScale;
-		if(!Assistant.IsFacingRight) { vLocalScaleBoomBubble *= -1;}
+		if(!Hero.IsFacingRight) { vLocalScaleBoomBubble *= -1;}
 		goBoomBubble.transform.localScale = vLocalScaleBoomBubble;
 
 		goBoomBubble.SetPos(tPosProjectLaunch);
