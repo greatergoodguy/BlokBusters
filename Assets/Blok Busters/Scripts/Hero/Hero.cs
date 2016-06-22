@@ -27,6 +27,7 @@ public class Hero : MonoBehaviour {
 	public HeroState_Base stateJump = new HeroStateJump();
 	public HeroState_Base stateAttack = new HeroStateAttack();
 	public HeroState_Base stateHurt = new HeroStateHurt();
+	public HeroState_Base stateBounce = new HeroStateBounce();
 
 	public Player player;
 
@@ -83,6 +84,9 @@ public class Hero : MonoBehaviour {
 		Toolbox.Log("OnTriggerEnter2D: " + other.tag);
 		if (other.tag == "Hurtable") {
 			ChangeState(stateHurt);
+		}
+		else if (other.tag == "Bouncable") {
+			ChangeState(stateBounce);
 		}
 	}
 

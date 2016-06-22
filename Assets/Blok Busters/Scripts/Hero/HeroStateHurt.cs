@@ -18,12 +18,15 @@ public class HeroStateHurt : HeroState_Base {
 
 		Hero.ChangeSprite(spriteHurt);
 
+		float speedHorizontal = 400f;
+		float speedVertical = 50f;
+
 		if (Hero.IsFacingRight) {
 			Hero.Rigidbody2D.velocity = Vector2.zero;
-			Hero.Rigidbody2D.AddForce(new Vector2(-200f, 50f));
+			Hero.Rigidbody2D.AddForce(new Vector2(-speedHorizontal, speedVertical));
 		} else {
 			Hero.Rigidbody2D.velocity = Vector2.zero;
-			Hero.Rigidbody2D.AddForce(new Vector2(200f, 50f));
+			Hero.Rigidbody2D.AddForce(new Vector2(speedHorizontal, speedVertical));
 		}
 	}
 

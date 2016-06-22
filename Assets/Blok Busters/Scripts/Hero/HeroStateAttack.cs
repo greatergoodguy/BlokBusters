@@ -27,7 +27,7 @@ public class HeroStateAttack : HeroState_Base {
 		goBoomBubble.AddComponent<GeneSuicide>();
 
 		GeneVelocity geneVelocity = goBoomBubble.AddComponent<GeneVelocity>();
-		float speedX = 12;
+		float speedX = 24;
 		float velocityX = Hero.IsFacingRight ? speedX : speedX * -1;
 		geneVelocity.SetVelocity(velocityX, 0);
 
