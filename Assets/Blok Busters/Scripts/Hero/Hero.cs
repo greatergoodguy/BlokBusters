@@ -27,7 +27,7 @@ public class Hero : MonoBehaviour {
 	public HeroState_Base stateJump = new HeroStateJump();
 	public HeroState_Base stateAttack = new HeroStateAttack();
 	public HeroState_Base stateHurt = new HeroStateHurt();
-	public HeroState_Base stateBounce = new HeroStateBounce();
+	public HeroStateBounce stateBounce = new HeroStateBounce();
 
 	public Player player;
 
@@ -81,11 +81,15 @@ public class Hero : MonoBehaviour {
 	}
 
 	void OnTriggerEnter2D(Collider2D other) {
-		Toolbox.Log("OnTriggerEnter2D: " + other.tag);
+		Toolbox.Log("OnTriggerEnter2D - " + other.tag);
+
 		if (other.tag == "Hurtable") {
 			ChangeState(stateHurt);
 		}
 		else if (other.tag == "Bouncable") {
+			//Toolbox.Log("up - " + other.transform.up);
+			Vector2 bounceAngle = (new Vector2(other.transform.up.x, other.transform.up.y)).normalized;
+			stateBounce.SetBounceAngle(bounceAngle);
 			ChangeState(stateBounce);
 		}
 	}
