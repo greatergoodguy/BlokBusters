@@ -5,7 +5,8 @@ using UnityStandardAssets.CrossPlatformInput;
 public class HeroStateMove : HeroState_Base {
 
 	[SerializeField] private float maxSpeed = 10f;
-	[SerializeField] private float additiveMovementForce = 30f;
+	//[SerializeField] private float additiveMovementForce = 30f;
+	[SerializeField] private float additiveMovementForce = 60f;
 	[SerializeField] private float jumpForce = 1000f;
 
 	public override void Update() {
@@ -28,8 +29,14 @@ public class HeroStateMove : HeroState_Base {
 		if (velXCurrent <= maxSpeed && velXCurrent >= -maxSpeed) {
 			Hero.Rigidbody2D.AddForce(new Vector2(axisHorizontal * additiveMovementForce, 0));
 		}
+		else if (velXCurrent <= -maxSpeed && axisHorizontal > 0) {
+			Hero.Rigidbody2D.AddForce(new Vector2(axisHorizontal * additiveMovementForce, 0));
+		}
+		else if (velXCurrent >= maxSpeed && axisHorizontal < 0) {
+			Hero.Rigidbody2D.AddForce(new Vector2(axisHorizontal * additiveMovementForce, 0));
+		}
 
-		Toolbox.Log("Hero.Rigidbody2D.velocity - " + Hero.Rigidbody2D.velocity);
+//		Toolbox.Log("Hero.Rigidbody2D.velocity - " + Hero.Rigidbody2D.velocity);
 
 		if (axisHorizontal > 0 && !Hero.IsFacingRight) {
 			Flip();

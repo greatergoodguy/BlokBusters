@@ -86,8 +86,19 @@ public class Hero : MonoBehaviour {
 		if (other.tag == "Hurtable") {
 			ChangeState(stateHurt);
 		}
-		else if (other.tag == "Bouncable") {
-			//Toolbox.Log("up - " + other.transform.up);
+		else if (other.tag == "Bouncable" && heroState != stateBounce) {
+			Vector2 bounceAngle = (new Vector2(other.transform.up.x, other.transform.up.y)).normalized;
+			stateBounce.SetBounceAngle(bounceAngle);
+			ChangeState(stateBounce);
+		}
+		else if (other.tag == "Score Bubble") {
+			UIScore.Instance.AddScore(player, 10);
+		}
+	}
+
+	void OnCollisionEnter2D(Collision2D other) {
+		Toolbox.Log("OnCollisionEnter2D - " + other.collider.tag);
+		if (other.collider.tag == "Bouncable" && heroState != stateBounce) {
 			Vector2 bounceAngle = (new Vector2(other.transform.up.x, other.transform.up.y)).normalized;
 			stateBounce.SetBounceAngle(bounceAngle);
 			ChangeState(stateBounce);

@@ -13,12 +13,19 @@ public static class Toolbox {
 		MethodBase method = frame.GetMethod();
 		string tag = method.DeclaringType.ToString();
 
+		if (tag == "Hero") {
+			return;
+		}
 		UnityEngine.Debug.Log (tag + ": " + message);
 	}
 
 
 	public static GameObject Create(string resourceName) {
 		GameObject newGO = Resources.Load<GameObject>(resourceName);
+		if (newGO == null) {
+			newGO = Resources.Load<GameObject>("Mock");
+		}
+
 		newGO = GameObject.Instantiate<GameObject>(newGO);
 		newGO.name = resourceName;
 		return newGO;

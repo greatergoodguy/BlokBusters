@@ -3,7 +3,7 @@ using System.Collections;
 
 public static class Extensions {
 	public static void SetPos(this GameObject gameObject, Transform transform) {
-		Toolbox.Log("SetPos() - (x, y, z): (" + transform.position.x + ", " + transform.position.y + ", " + transform.position.z + ")");
+		//Toolbox.Log("SetPos() - (x, y, z): (" + transform.position.x + ", " + transform.position.y + ", " + transform.position.z + ")");
 		gameObject.SetPos(transform.position.x, transform.position.y, transform.position.z);
 	}
 
