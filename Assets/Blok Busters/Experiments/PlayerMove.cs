@@ -29,16 +29,20 @@ public class PlayerMove : NetworkBehaviour {
 
 	[Command]
 	void CmdFire() {
-		// create the bullet object from the bullet prefab
+		// This [Command] code is run on the server!
+
+		// create the bullet object locally
 		var bullet = (GameObject)Instantiate(
 			bulletPrefab,
 			transform.position - transform.forward,
 			Quaternion.identity);
 
-		// make the bullet move away in front of the player
 		bullet.GetComponent<Rigidbody>().velocity = -transform.forward*4;
 
-		// make bullet disappear after 2 seconds
-		Destroy(bullet, 2.0f);        
+		// spawn the bullet on the clients
+		NetworkServer.Spawn(bullet);
+
+		// when the bullet is destroyed on the server it will automaticaly be destroyed on clients
+		Destroy(bullet, 2.0f);
 	}
 }
