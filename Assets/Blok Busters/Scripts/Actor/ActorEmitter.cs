@@ -16,6 +16,7 @@ public class ActorEmitter : MonoBehaviour {
 
 		if (emitOnStart) {
 			GameObject gameObject = GameObject.Instantiate<GameObject>(gameObjectTemplate);
+			gameObject.transform.parent = transform.parent;
 			gameObject.SetPos(transform);
 		}
 	}
@@ -32,6 +33,7 @@ public class ActorEmitter : MonoBehaviour {
 		elapsedTime += Time.deltaTime;
 		if (elapsedTime >= emitRateInSecond) {
 			GameObject gameObject = GameObject.Instantiate<GameObject>(gameObjectTemplate);
+			gameObject.transform.parent = transform.parent;
 			gameObject.SetPos(transform);
 			elapsedTime = 0;
 		}
