@@ -3,7 +3,7 @@ using System.Collections;
 
 public class HeroStateBounce : HeroState_Base {
 	
-	[SerializeField] private float bounceForce = 1500f;
+	[SerializeField] private float bounceForce = 2000f;
 
 	Vector2 bounceAngle = Vector2.up;
 
