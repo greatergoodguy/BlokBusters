@@ -9,7 +9,7 @@ public enum Player {
 }
 
 public class Hero : MonoBehaviour {
-	
+
 	public Rigidbody2D Rigidbody2D { get; private set; }
 	public Transform Transform { get; private set; }
 	public bool IsGrounded { get; private set; }
@@ -114,6 +114,7 @@ public class Hero : MonoBehaviour {
 	}
 
 	public void ChangeSprite(Sprite sprite) {
-		GetComponent<SpriteRenderer>().sprite = sprite;
+		Transform heroSprite = Transform.FindChild("Sprite");
+		heroSprite.GetComponent<SpriteRenderer>().sprite = sprite;
 	}
 }

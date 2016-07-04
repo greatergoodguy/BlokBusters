@@ -34,4 +34,26 @@ public static class Extensions {
 	public static bool HasA<T>(this Collision2D collision) {
 		return collision.collider.HasA<T>();
 	}
+
+	public static bool IsLeftOf(this GameObject gameObject, GameObject target) {
+		if (target == null) {
+			return false;
+		}
+		return gameObject.transform.position.x < target.transform.position.x;
+	}
+
+	public static bool IsRightOf(this GameObject gameObject, GameObject target) {
+		return !IsLeftOf(gameObject, target);
+	}
+
+	public static bool IsBelow(this GameObject gameObject, GameObject target) {
+		if (target == null) {
+			return false;
+		}
+		return gameObject.transform.position.y < target.transform.position.y;
+	}
+
+	public static bool IsAbove(this GameObject gameObject, GameObject target) {
+		return !IsBelow(gameObject, target);
+	}
 }

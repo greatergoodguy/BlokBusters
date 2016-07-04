@@ -49,8 +49,10 @@ public class HeroStateMove : HeroState_Base {
 	private void Flip() {
 		Hero.IsFacingRight = !Hero.IsFacingRight;
 
-		Vector3 localScale = Hero.Transform.localScale;
+		Transform heroSprite = Hero.Transform.FindChild("Sprite");
+
+		Vector3 localScale = heroSprite.localScale;
 		localScale.x *= -1;
-		Hero.Transform.localScale = localScale;
+		heroSprite.localScale = localScale;
 	}
 }
