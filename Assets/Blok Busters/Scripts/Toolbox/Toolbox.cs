@@ -13,9 +13,6 @@ public static class Toolbox {
 		MethodBase method = frame.GetMethod();
 		string tag = method.DeclaringType.ToString();
 
-		if (tag == "Hero") {
-			return;
-		}
 		UnityEngine.Debug.Log (tag + ": " + message);
 	}
 
