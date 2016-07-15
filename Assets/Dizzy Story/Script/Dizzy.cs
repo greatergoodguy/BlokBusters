@@ -6,35 +6,59 @@ public class Dizzy : MonoBehaviour {
 	public int forceScaler = 10;
 
 	Rigidbody2D rigidBody;
+	bool isFacingRight = true;
+	float maxSpeed = 10f;
+	float additiveMovementForce = 60f;
+	float jumpForce = 1000f;
+
+	bool isGrounded = false;
 
 	void Awake() {
 		rigidBody = GetComponent<Rigidbody2D>();
-		//rigidBody.AddForce(new Vector2(1, 0) * 1000);
-	}
-
-	// Use this for initialization
-	void Start () {
-	
 	}
 	
 	// Update is called once per frame
 	void Update () {
-	
-		if (Input.GetKey(KeyCode.A)) {
-			Toolbox.Log("Move Left");
-			rigidBody.AddForce(new Vector2(-1, 0) * forceScaler);
+
+		float axisHorizontal 		= Input.GetAxis("Horizontal");
+		float velXCurrent 			= rigidBody.velocity.x;
+		float resistanceMultiplier 	= 3;
+
+		if (velXCurrent <= maxSpeed && velXCurrent >= -maxSpeed) {
+			rigidBody.AddForce(new Vector2(axisHorizontal * additiveMovementForce, 0));
 		}
-		if (Input.GetKey(KeyCode.D)) {
-			Toolbox.Log("Move Right");
-			rigidBody.AddForce(new Vector2(1, 0) * forceScaler);
+		else if (velXCurrent <= -maxSpeed && axisHorizontal > 0) {
+			rigidBody.AddForce(new Vector2(axisHorizontal * additiveMovementForce, 0));
 		}
-		if (Input.GetKeyDown(KeyCode.W)) {
-			Toolbox.Log("Move Left");
-			rigidBody.AddForce(new Vector2(0, 1) * forceScaler);
+		else if (velXCurrent >= maxSpeed && axisHorizontal < 0) {
+			rigidBody.AddForce(new Vector2(axisHorizontal * additiveMovementForce, 0));
 		}
-		if (Input.GetKeyDown(KeyCode.S)) {
-			Toolbox.Log("Move Right");
-			rigidBody.AddForce(new Vector2(0, -1) * forceScaler);
+
+		if (axisHorizontal > 0 && !isFacingRight) {
+			Flip();
 		}
+		else if (axisHorizontal < 0 && isFacingRight) {			
+			Flip();
+		}
+
+		if (isGrounded && Input.GetKeyDown(KeyCode.Space)) {
+			rigidBody.AddForce(new Vector2(0f, jumpForce));
+		}
+	}
+
+	private void Flip() {
+		isFacingRight = !isFacingRight;
+
+		Vector3 localScale = transform.localScale;
+		localScale.x *= -1;
+		transform.localScale = localScale;
+	}
+
+	void OnCollisionEnter2D(Collision2D collision) {
+		isGrounded = true;
+	}
+
+	void OnCollisionExit2D(Collision2D collision) {
+		isGrounded = false;
 	}
 }
