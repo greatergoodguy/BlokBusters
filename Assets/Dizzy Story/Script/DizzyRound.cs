@@ -59,12 +59,12 @@ public class DizzyRound : MonoBehaviour {
 	}
 
 	IEnumerator ShowWinnerScreenAndStartNextLevel() {
-		GameObject goUIWinner = GameObject.Find("UI Winner");
-		goUIWinner.transform.Find("Panel").gameObject.SetActive(true);
+//		GameObject goUIWinner = GameObject.Find("UI Winner");
+//		goUIWinner.transform.Find("Panel").gameObject.SetActive(true);
 
 		yield return new WaitForSeconds(2);
 
-		Application.LoadLevel("Level 1");
+//		Application.LoadLevel("Level 1");
 	}
 }
 
