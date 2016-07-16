@@ -61,7 +61,7 @@ public class Dizzy : MonoBehaviour {
 	}
 
 	void OnCollisionEnter2D(Collision2D collision) {
-		Toolbox.Log("velocityPreviousFrame: " + velocityPreviousFrame);
+		//Toolbox.Log("velocityPreviousFrame: " + velocityPreviousFrame);
 		isGrounded = true;
 
 		if (velocityPreviousFrame > 25.0f) {
@@ -74,9 +74,9 @@ public class Dizzy : MonoBehaviour {
 	}
 
 	IEnumerator ShowWinnerScreenAndStartNextLevel() {
-		GameObject goUIWinner = GameObject.Find("UI Winner");
-		goUIWinner.transform.Find("Panel").gameObject.SetActive(true);
-
+//		GameObject goUIWinner = GameObject.Find("UI Winner");
+//		goUIWinner.transform.Find("Panel").gameObject.SetActive(true);
+//
 		yield return new WaitForSeconds(2);
 //		Application.LoadLevel("Level 1");
 	}
