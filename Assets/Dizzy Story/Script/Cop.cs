@@ -7,17 +7,6 @@ public class Cop : MonoBehaviour {
 	GameObject goSpeechBubble;
 	bool isDialogueHappening = false;
 
-	void CreateSpeechBubble(string dialogue) {
-		Destroy(goSpeechBubble);
-
-		Object oSpeechBubble = Resources.Load("Speech Bubble", typeof(GameObject));
-		goSpeechBubble = GameObject.Instantiate(oSpeechBubble) as GameObject;
-		goSpeechBubble.transform.position = transform.position + new Vector3(0, 5.5f, 0);
-
-		Text text = goSpeechBubble.transform.Find("Canvas/Text").GetComponent<Text>();
-		text.text = dialogue;
-	}
-
 	void OnTriggerEnter2D(Collider2D other) {
 		if (isDialogueHappening) {
 			return;
@@ -50,6 +39,11 @@ public class Cop : MonoBehaviour {
 		yield return new WaitForSeconds(2);
 		Destroy(goSpeechBubble);
 		isDialogueHappening = false;
-		Application.LoadLevel("Level 4 Black Eggs Matter");
+	}
+		
+	void CreateSpeechBubble(string dialogue) {
+		Destroy(goSpeechBubble);
+		goSpeechBubble = Factory.CreateSpeechBubble(dialogue);
+		goSpeechBubble.transform.position = transform.position + new Vector3(0, 5.5f, 0);
 	}
 }

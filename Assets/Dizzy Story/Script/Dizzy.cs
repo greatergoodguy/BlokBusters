@@ -3,11 +3,13 @@ using System.Collections;
 
 public class Dizzy : MonoBehaviour {
 
+	public static Dizzy Instance;
+
 	public int forceScaler = 10;
 
 	Rigidbody2D rigidBody;
 	bool isFacingRight = true;
-	float maxSpeedX = 14f;
+	float maxSpeedX = 8f;
 	float additiveMovementForce = 60f;
 	float jumpForce = 1000f;
 
@@ -15,6 +17,8 @@ public class Dizzy : MonoBehaviour {
 	float velocityPreviousFrame;
 
 	void Awake() {
+		Instance = this;
+
 		rigidBody = GetComponent<Rigidbody2D>();
 	}
 	
