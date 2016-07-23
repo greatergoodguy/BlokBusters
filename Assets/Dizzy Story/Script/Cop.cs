@@ -22,7 +22,7 @@ public class Cop : MonoBehaviour {
 
 	IEnumerator DialogueDizzy() {
 		isDialogueHappening = true;
-		CreateSpeechBubble("Hello Mr. Dizzy");
+		CreateSpeechBubble("Hello Mr. Egg. Your shell is looking especially white");
 		yield return new WaitForSeconds(2);
 		Destroy(goSpeechBubble);
 		isDialogueHappening = false;
