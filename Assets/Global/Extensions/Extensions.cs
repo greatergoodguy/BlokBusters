@@ -2,8 +2,24 @@
 using System.Collections;
 
 public static class Extensions {
+
+	public static void Hide(this MonoBehaviour monoBehaviour) {
+		monoBehaviour.gameObject.SetActive(false);
+	}
+
+	public static void Show(this MonoBehaviour monoBehaviour) {
+		monoBehaviour.gameObject.SetActive(true);
+	}
+
+	public static void Hide(this GameObject gameObject) {
+		gameObject.SetActive(false);
+	}
+
+	public static void Show(this GameObject gameObject) {
+		gameObject.SetActive(true);
+	}
+
 	public static void SetPos(this GameObject gameObject, Transform transform) {
-		//Toolbox.Log("SetPos() - (x, y, z): (" + transform.position.x + ", " + transform.position.y + ", " + transform.position.z + ")");
 		gameObject.SetPos(transform.position.x, transform.position.y, transform.position.z);
 	}
 

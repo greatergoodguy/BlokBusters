@@ -4,7 +4,7 @@ using UnityEngine.UI;
 using System;
 using System.Collections;
 
-public class ActorGameUI : MonoBehaviour {
+public class ActorGameUI_Dep : MonoBehaviour {
 
 	GameObject goAnticipationTimer;
 	float MAX_AGE = 2.4f;

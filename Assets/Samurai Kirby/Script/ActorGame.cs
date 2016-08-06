@@ -1,12 +1,19 @@
 ﻿using UnityEngine;
+using System;
 using System.Collections;
 
 public class ActorGame : MonoBehaviour {
 
+	public static ActorGame Instance;
+
 	GameObject goFox;
 	GameObject goWalrus;
 
+	public event Action actionGameFinished = () => {};
+
 	void Awake() {
+		Instance = this;
+
 		goFox = transform.Find("Fox").gameObject;
 		goWalrus = transform.Find("Walrus").gameObject;
 	}
@@ -41,6 +48,8 @@ public class ActorGame : MonoBehaviour {
 		Sprite[] spritesWalrus = Resources.LoadAll<Sprite>("walrus");
 		SpriteRenderer spriteRendererWalrus = goWalrus.GetComponent<SpriteRenderer>();
 		spriteRendererWalrus.sprite = spritesWalrus[1];
+
+		GameFinished();
 	}
 
 	public void OnActionPressedEarly() {
@@ -51,5 +60,11 @@ public class ActorGame : MonoBehaviour {
 		Sprite[] spritesWalrus = Resources.LoadAll<Sprite>("walrus");
 		SpriteRenderer spriteRendererWalrus = goWalrus.GetComponent<SpriteRenderer>();
 		spriteRendererWalrus.sprite = spritesWalrus[2];
+
+		GameFinished();
+	}
+
+	private void GameFinished() {
+		actionGameFinished.Invoke();
 	}
 }
