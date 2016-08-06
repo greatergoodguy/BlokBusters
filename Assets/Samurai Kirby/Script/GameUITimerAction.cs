@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
+using System;
 using System.Collections;
 
 public class GameUITimerAction : MonoBehaviour {
@@ -8,12 +9,14 @@ public class GameUITimerAction : MonoBehaviour {
 	public bool IsFinished { get; private set;}
 
 	Text textActionTimer;
-	float MAX_AGE = 5.0f;
+	float MAX_AGE = 3.0f;
 	float ageAction = 0;
 
-	// Use this for initialization
+	public event Action actionOnFinished = () => {};
+
 	void Awake () {
 		textActionTimer = transform.Find("Panel/Action Timer").GetComponent<Text>();
+		textActionTimer.Show();
 	}
 
 	void Start() {
@@ -32,6 +35,7 @@ public class GameUITimerAction : MonoBehaviour {
 		if (ageAction >= MAX_AGE) {
 			ageAction = MAX_AGE;
 			IsFinished = true;
+			actionOnFinished.Invoke();
 			return;
 		}
 

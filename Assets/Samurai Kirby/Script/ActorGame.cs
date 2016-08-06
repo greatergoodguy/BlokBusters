@@ -40,7 +40,7 @@ public class ActorGame : MonoBehaviour {
 		spriteRendererWalrus.sprite = spritesWalrus[3];
 	}
 
-	public void OnActionPressed() {
+	public void OnWin() {
 		Sprite[] spritesFox = Resources.LoadAll<Sprite>("foxes");
 		SpriteRenderer spriteRendererFox = goFox.GetComponent<SpriteRenderer>();
 		spriteRendererFox.sprite = spritesFox[1];
@@ -48,11 +48,9 @@ public class ActorGame : MonoBehaviour {
 		Sprite[] spritesWalrus = Resources.LoadAll<Sprite>("walrus");
 		SpriteRenderer spriteRendererWalrus = goWalrus.GetComponent<SpriteRenderer>();
 		spriteRendererWalrus.sprite = spritesWalrus[1];
-
-		GameFinished();
 	}
 
-	public void OnActionPressedEarly() {
+	public void OnLose() {
 		Sprite[] spritesFox = Resources.LoadAll<Sprite>("foxes");
 		SpriteRenderer spriteRendererFox = goFox.GetComponent<SpriteRenderer>();
 		spriteRendererFox.sprite = spritesFox[2];
@@ -60,11 +58,5 @@ public class ActorGame : MonoBehaviour {
 		Sprite[] spritesWalrus = Resources.LoadAll<Sprite>("walrus");
 		SpriteRenderer spriteRendererWalrus = goWalrus.GetComponent<SpriteRenderer>();
 		spriteRendererWalrus.sprite = spritesWalrus[2];
-
-		GameFinished();
-	}
-
-	private void GameFinished() {
-		actionGameFinished.Invoke();
 	}
 }

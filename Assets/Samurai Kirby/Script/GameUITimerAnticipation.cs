@@ -15,6 +15,7 @@ public class GameUITimerAnticipation : MonoBehaviour {
 
 	void Awake() {
 		goTimer = transform.Find("Panel/Anticipation Timer").gameObject;
+		goTimer.Show();
 	}
 
 	void Start() {

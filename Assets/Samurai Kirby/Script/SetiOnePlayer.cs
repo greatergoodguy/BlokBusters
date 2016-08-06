@@ -5,19 +5,27 @@ public class SetiOnePlayer : SeTi_Base {
 
 	public static SetiOnePlayer Instance = new SetiOnePlayer();
 
+	ActorGameContainer gameContainer;
+
 	GameUITimerAnticipation uiTimerAnticipation;
 	GameUITimerAction uiTimerAction;
 	GameUIExclamation uiExclamation;
 
+	ActorGame game;
+
+	bool hasGameOverCoroutineStarted = false;
+	bool isFinished = false;
+
 	public override void Enter () {
 		ActorGame.Instance.Reset();
 
-		ActorGameContainer gameContainer = ActorGameContainer.Instance;
+		gameContainer = ActorGameContainer.Instance;
 		gameContainer.Show();
 
 		uiTimerAnticipation = gameContainer.GetComponentInChildren<GameUITimerAnticipation>();
 		uiTimerAction = gameContainer.GetComponentInChildren<GameUITimerAction>();
 		uiExclamation = gameContainer.GetComponentInChildren<GameUIExclamation>();
+		game = gameContainer.GetComponentInChildren<ActorGame>();
 
 		Reset();
 	}
@@ -27,31 +35,73 @@ public class SetiOnePlayer : SeTi_Base {
 			Reset();
 		}
 
+		if (hasGameOverCoroutineStarted) {
+			return;
+		}
+			
 		if(!uiTimerAnticipation.IsFinished && Input.GetKeyDown(KeyCode.Space)) {
-			uiTimerAnticipation.Pause();
+			OnLose();
 		}
 		if(uiTimerAnticipation.IsFinished && Input.GetKeyDown(KeyCode.Space)) {
-			uiTimerAction.Pause();
+			OnWin();
 		}
+	}
+
+	private void OnLose() {
+		uiTimerAnticipation.Pause();
+		uiExclamation.Hide();
+		game.OnLose();
+		ActorMasterMono.Instance.StartCoroutine(CoroutineGameOver(3));
+	}
+
+	private void OnWin() {
+		uiTimerAction.Pause();
+		uiExclamation.Hide();
+		game.OnWin();
+		ActorMasterMono.Instance.StartCoroutine(CoroutineGameOver(3));
+	}
+
+	IEnumerator CoroutineGameOver(float waitTime) {
+		hasGameOverCoroutineStarted = true;
+		yield return new WaitForSeconds(waitTime);
+		Toolbox.Log("WaitAndPrint " + Time.time);
+		hasGameOverCoroutineStarted = false;
+
+		isFinished = true;
+	}
+
+	public override void Exit() {
+		gameContainer.Hide();
 	}
 
 	public override bool IsFinished () {
-		return false;
+		return isFinished;
 	}
 
 	public override SeTi_Base GetNextSeason () {
-		return SeTiMock.Instance;
+		//return SeTiMock.Instance;
+		return SetiTitleScreen.Instance;
 	}
 
 	void Reset() {
+		isFinished = false;
+
 		uiTimerAnticipation.Reset(); 
 		uiTimerAction.Reset();
 		uiExclamation.Hide();
+
+		game.Reset();
 
 		uiTimerAnticipation.Begin();
 		uiTimerAnticipation.actionTimerFinished += () => {
 			uiExclamation.Show();
 			uiTimerAction.Begin();
 		};
+
+		uiTimerAction.actionOnFinished += () => {
+			OnLose();
+		};
+
+		ActorMasterMono.Instance.StopAllCoroutines();
 	}
 }
