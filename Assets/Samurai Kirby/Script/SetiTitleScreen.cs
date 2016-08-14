@@ -14,10 +14,13 @@ public class SetiTitleScreen : SeTi_Base {
 
 		titleScreen.Show();
 		titleScreen.actionOnePlayer += () => {
-			titleScreen.Hide();
 			isFinished = true;
 		};
 
+	}
+
+	public override void Exit() {
+		titleScreen.Hide();
 	}
 
 	public override bool IsFinished () {
@@ -25,6 +28,7 @@ public class SetiTitleScreen : SeTi_Base {
 	}
 
 	public override SeTi_Base GetNextSeason () {
+		//return SetiStareDown.Instance;
 		return SetiOnePlayer.Instance;
 	}
 }
