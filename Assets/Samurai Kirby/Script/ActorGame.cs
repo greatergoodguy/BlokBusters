@@ -31,32 +31,32 @@ public class ActorGame : MonoBehaviour {
 	}
 
 	public void Reset() {
-		Sprite[] spritesFox = Resources.LoadAll<Sprite>("foxes");
+		Sprite spriteIphone = Resources.Load<Sprite>("iphone_standby");
 		SpriteRenderer spriteRendererFox = goFox.GetComponent<SpriteRenderer>();
-		spriteRendererFox.sprite = spritesFox[0];
+		spriteRendererFox.sprite = spriteIphone;
 
-		Sprite[] spritesWalrus = Resources.LoadAll<Sprite>("walrus");
+		Sprite spriteNokia = Resources.Load<Sprite>("nokia_standby");
 		SpriteRenderer spriteRendererWalrus = goWalrus.GetComponent<SpriteRenderer>();
-		spriteRendererWalrus.sprite = spritesWalrus[3];
+		spriteRendererWalrus.sprite = spriteNokia;
 	}
 
 	public void OnWin() {
-		Sprite[] spritesFox = Resources.LoadAll<Sprite>("foxes");
+		Sprite spriteIphone = Resources.Load<Sprite>("iphone_win");
 		SpriteRenderer spriteRendererFox = goFox.GetComponent<SpriteRenderer>();
-		spriteRendererFox.sprite = spritesFox[1];
+		spriteRendererFox.sprite = spriteIphone;
 
-		Sprite[] spritesWalrus = Resources.LoadAll<Sprite>("walrus");
+		Sprite spriteNokia = Resources.Load<Sprite>("nokia_lose");
 		SpriteRenderer spriteRendererWalrus = goWalrus.GetComponent<SpriteRenderer>();
-		spriteRendererWalrus.sprite = spritesWalrus[1];
+		spriteRendererWalrus.sprite = spriteNokia;
 	}
 
 	public void OnLose() {
-		Sprite[] spritesFox = Resources.LoadAll<Sprite>("foxes");
+		Sprite spriteIphone = Resources.Load<Sprite>("iphone_lose");
 		SpriteRenderer spriteRendererFox = goFox.GetComponent<SpriteRenderer>();
-		spriteRendererFox.sprite = spritesFox[2];
+		spriteRendererFox.sprite = spriteIphone;
 
-		Sprite[] spritesWalrus = Resources.LoadAll<Sprite>("walrus");
+		Sprite spriteNokia = Resources.Load<Sprite>("nokia_win");
 		SpriteRenderer spriteRendererWalrus = goWalrus.GetComponent<SpriteRenderer>();
-		spriteRendererWalrus.sprite = spritesWalrus[2];
+		spriteRendererWalrus.sprite = spriteNokia;
 	}
 }

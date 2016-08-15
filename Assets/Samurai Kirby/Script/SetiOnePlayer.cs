@@ -84,6 +84,7 @@ public class SetiOnePlayer : SeTi_Base {
 	}
 
 	void Reset() {
+		hasGameOverCoroutineStarted = false;
 		isFinished = false;
 
 		uiTimerAnticipation.Reset(); 
