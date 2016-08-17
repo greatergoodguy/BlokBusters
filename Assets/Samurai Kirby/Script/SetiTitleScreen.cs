@@ -14,6 +14,7 @@ public class SetiTitleScreen : SeTi_Base {
 
 		titleScreen.Show();
 		titleScreen.actionOnePlayer += () => {
+			ActorSFX.Instance.Play(0);
 			isFinished = true;
 		};
 

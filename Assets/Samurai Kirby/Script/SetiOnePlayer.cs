@@ -48,6 +48,7 @@ public class SetiOnePlayer : SeTi_Base {
 	}
 
 	private void OnLose() {
+		ActorSFX.Instance.Play(2);
 		uiTimerAnticipation.Pause();
 		uiExclamation.Hide();
 		game.OnLose();
@@ -55,6 +56,7 @@ public class SetiOnePlayer : SeTi_Base {
 	}
 
 	private void OnWin() {
+		ActorSFX.Instance.Play(1);
 		uiTimerAction.Pause();
 		uiExclamation.Hide();
 		game.OnWin();
@@ -95,6 +97,7 @@ public class SetiOnePlayer : SeTi_Base {
 
 		uiTimerAnticipation.Begin();
 		uiTimerAnticipation.actionTimerFinished += () => {
+			ActorSFX.Instance.Play(3);
 			uiExclamation.Show();
 			uiTimerAction.Begin();
 		};

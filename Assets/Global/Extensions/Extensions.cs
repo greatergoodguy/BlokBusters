@@ -19,6 +19,10 @@ public static class Extensions {
 		gameObject.SetActive(true);
 	}
 
+	public static void SetPos(this GameObject gameObject, GameObject gameObjectTarget) {
+		gameObject.SetPos(gameObjectTarget.transform);
+	}
+
 	public static void SetPos(this GameObject gameObject, Transform transform) {
 		gameObject.SetPos(transform.position.x, transform.position.y, transform.position.z);
 	}

@@ -6,16 +6,26 @@ public class ActorGame : MonoBehaviour {
 
 	public static ActorGame Instance;
 
-	GameObject goFox;
-	GameObject goWalrus;
+	GameObject goPlayer1;
+	GameObject goPlayer2;
+
+	GameObject goPlayer1Start;
+	GameObject goPlayer1End;
+	GameObject goPlayer2Start;
+	GameObject goPlayer2End;
 
 	public event Action actionGameFinished = () => {};
 
 	void Awake() {
 		Instance = this;
 
-		goFox = transform.Find("Fox").gameObject;
-		goWalrus = transform.Find("Walrus").gameObject;
+		goPlayer1 = transform.Find("Player 1").gameObject;
+		goPlayer2 = transform.Find("Player 2").gameObject;
+
+		goPlayer1Start 	= transform.Find("Player 1 Start").gameObject;
+		goPlayer1End 	= transform.Find("Player 1 End").gameObject;
+		goPlayer2Start 	= transform.Find("Player 2 Start").gameObject;
+		goPlayer2End 	= transform.Find("Player 2 End").gameObject;
 	}
 
 	// Use this for initialization
@@ -32,31 +42,40 @@ public class ActorGame : MonoBehaviour {
 
 	public void Reset() {
 		Sprite spriteIphone = Resources.Load<Sprite>("iphone_standby");
-		SpriteRenderer spriteRendererFox = goFox.GetComponent<SpriteRenderer>();
-		spriteRendererFox.sprite = spriteIphone;
+		SpriteRenderer srIphone = goPlayer1.GetComponent<SpriteRenderer>();
+		srIphone.sprite = spriteIphone;
 
 		Sprite spriteNokia = Resources.Load<Sprite>("nokia_standby");
-		SpriteRenderer spriteRendererWalrus = goWalrus.GetComponent<SpriteRenderer>();
-		spriteRendererWalrus.sprite = spriteNokia;
+		SpriteRenderer srNokia = goPlayer2.GetComponent<SpriteRenderer>();
+		srNokia.sprite = spriteNokia;
+
+		goPlayer1.SetPos(goPlayer1Start);
+		goPlayer2.SetPos(goPlayer2Start);
 	}
 
 	public void OnWin() {
 		Sprite spriteIphone = Resources.Load<Sprite>("iphone_win");
-		SpriteRenderer spriteRendererFox = goFox.GetComponent<SpriteRenderer>();
-		spriteRendererFox.sprite = spriteIphone;
+		SpriteRenderer srIphone = goPlayer1.GetComponent<SpriteRenderer>();
+		srIphone.sprite = spriteIphone;
 
 		Sprite spriteNokia = Resources.Load<Sprite>("nokia_lose");
-		SpriteRenderer spriteRendererWalrus = goWalrus.GetComponent<SpriteRenderer>();
-		spriteRendererWalrus.sprite = spriteNokia;
+		SpriteRenderer srNokia = goPlayer2.GetComponent<SpriteRenderer>();
+		srNokia.sprite = spriteNokia;
+
+		goPlayer1.SetPos(goPlayer1End);
+		goPlayer2.SetPos(goPlayer2End);
 	}
 
 	public void OnLose() {
 		Sprite spriteIphone = Resources.Load<Sprite>("iphone_lose");
-		SpriteRenderer spriteRendererFox = goFox.GetComponent<SpriteRenderer>();
-		spriteRendererFox.sprite = spriteIphone;
+		SpriteRenderer srIphone = goPlayer1.GetComponent<SpriteRenderer>();
+		srIphone.sprite = spriteIphone;
 
 		Sprite spriteNokia = Resources.Load<Sprite>("nokia_win");
-		SpriteRenderer spriteRendererWalrus = goWalrus.GetComponent<SpriteRenderer>();
-		spriteRendererWalrus.sprite = spriteNokia;
+		SpriteRenderer srNokia = goPlayer2.GetComponent<SpriteRenderer>();
+		srNokia.sprite = spriteNokia;
+
+		goPlayer1.SetPos(goPlayer1End);
+		goPlayer2.SetPos(goPlayer2End);
 	}
 }

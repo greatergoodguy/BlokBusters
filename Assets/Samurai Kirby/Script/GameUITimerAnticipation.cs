@@ -8,7 +8,9 @@ public class GameUITimerAnticipation : MonoBehaviour {
 	public bool IsFinished { get; private set;}
 
 	GameObject goTimer;
-	float MAX_AGE = 2.4f;
+	float MAX_AGE_MIN = 2.0f;
+	float MAX_AGE_MAX = 7.0f;
+	float maxAge = 0;
 	float age = 0;
 
 	public event Action actionTimerFinished = () => {};
@@ -32,7 +34,7 @@ public class GameUITimerAnticipation : MonoBehaviour {
 			return;
 		}
 
-		if (age >= MAX_AGE) {
+		if (age >= maxAge) {
 			actionTimerFinished.Invoke();
 			IsFinished = true;
 			return;
@@ -41,7 +43,7 @@ public class GameUITimerAnticipation : MonoBehaviour {
 		age += Time.deltaTime;
 		//Toolbox.Log("age: " + age);
 
-		float fraction = Mathf.Max((MAX_AGE - age) / MAX_AGE, 0);
+		float fraction = Mathf.Max((maxAge - age) / maxAge, 0);
 		//Toolbox.Log("fraction: " + fraction);
 
 		Vector3 localScaleTemp = goTimer.transform.localScale;
@@ -63,6 +65,8 @@ public class GameUITimerAnticipation : MonoBehaviour {
 	}
 
 	public void Reset() {
+		maxAge = UnityEngine.Random.Range(MAX_AGE_MIN, MAX_AGE_MAX);
+
 		IsFinished = true;
 		IsPaused = false;
 		age = 0;
