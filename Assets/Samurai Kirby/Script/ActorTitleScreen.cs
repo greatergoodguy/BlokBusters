@@ -9,7 +9,7 @@ public class ActorTitleScreen : MonoBehaviour {
 	GameObject goPanel;
 
 	public event Action actionOnePlayer = () => {};
-	public event Action actionTwoPlayer = () => {};
+	public event Action actionTwoPlayers = () => {};
 
 	void Awake() {
 		Instance = this;
@@ -28,7 +28,7 @@ public class ActorTitleScreen : MonoBehaviour {
 		actionOnePlayer.Invoke();
 	}
 
-	public void ButtonTwoPlayer() {
-		actionTwoPlayer.Invoke();
+	public void ButtonTwoPlayers() {
+		actionTwoPlayers.Invoke();
 	}
 }

@@ -20,4 +20,13 @@ public class ActorSFX : MonoBehaviour {
 
 		audioSources[index].Play();
 	}
+
+
+	public void Stop(int index) {
+		if (index < 0 || index >= audioSources.Length) {
+			return;
+		}
+
+		audioSources[index].Stop();
+	}
 }

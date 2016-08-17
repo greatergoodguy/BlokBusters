@@ -14,6 +14,6 @@ public class SetiStareDown : SeTi_Base {
 	}
 
 	public override SeTi_Base GetNextSeason () {
-		return SetiOnePlayer.Instance;
+		return SetiGameOnePlayer_Dep.Instance;
 	}
 }

@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using UnityEngine.UI;
 using System;
 using System.Collections;
 
@@ -9,7 +10,7 @@ public class GameUITimerAnticipation : MonoBehaviour {
 
 	GameObject goTimer;
 	float MAX_AGE_MIN = 2.0f;
-	float MAX_AGE_MAX = 7.0f;
+	float MAX_AGE_MAX = 8.0f;
 	float maxAge = 0;
 	float age = 0;
 
@@ -26,6 +27,11 @@ public class GameUITimerAnticipation : MonoBehaviour {
 
 	// Update is called once per frame
 	void Update () {
+		if(Input.GetKeyDown(KeyCode.Q)) {
+			Image iTimer = goTimer.GetComponent<Image>();
+			iTimer.enabled = !iTimer.enabled;
+		}
+
 		if (IsPaused) {
 			return;
 		}
