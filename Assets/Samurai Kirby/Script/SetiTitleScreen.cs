@@ -7,8 +7,8 @@ public class SetiTitleScreen : SeTi_Base {
 
 	ActorTitleScreen titleScreen;
 
-	SeTi_Base nextSeason = SeTiMock.Instance;
 	bool isFinished;
+	bool isOnePlayerPressed = true;
 
 	public override void Enter () {
 		titleScreen = ActorTitleScreen.Instance;
@@ -18,13 +18,13 @@ public class SetiTitleScreen : SeTi_Base {
 		titleScreen.actionOnePlayer += () => {
 			ActorSFX.Instance.Play(0);
 			isFinished = true;
-			nextSeason = SetiGameOnePlayer.Instance;
+			isOnePlayerPressed = true;
 		};
 
 		titleScreen.actionTwoPlayers += () => {
 			ActorSFX.Instance.Play(0);
 			isFinished = true;
-			nextSeason = SetiGameTwoPlayers.Instance;
+			isOnePlayerPressed = false;
 		};
 	}
 
@@ -37,6 +37,11 @@ public class SetiTitleScreen : SeTi_Base {
 	}
 
 	public override SeTi_Base GetNextSeason () {
-		return nextSeason;
+		if (isOnePlayerPressed) {
+			SetiGameOnePlayerMatches.Instance.Reset(titleScreen.NumMatches);
+			return SetiGameOnePlayerMatches.Instance;
+		} else {
+			return SetiGameTwoPlayers.Instance;
+		}
 	}
 }
