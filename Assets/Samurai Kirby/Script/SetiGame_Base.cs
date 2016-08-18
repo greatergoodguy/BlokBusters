@@ -67,6 +67,7 @@ public abstract class SetiGame_Base : SeTi_Base {
 	private void OnWinPlayerOne() {
 		ActorSFX.Instance.Stop(4);
 		ActorSFX.Instance.Play(1);
+		uiTimerAnticipation.Pause();
 		uiTimerAction.Pause();
 		uiExclamation.Hide();
 		game.OnWin();

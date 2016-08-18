@@ -41,7 +41,8 @@ public class SetiTitleScreen : SeTi_Base {
 			SetiGameOnePlayerMatches.Instance.Reset(titleScreen.NumMatches);
 			return SetiGameOnePlayerMatches.Instance;
 		} else {
-			return SetiGameTwoPlayers.Instance;
+			SetiGameTwoPlayersMatches.Instance.Reset(titleScreen.NumMatches);
+			return SetiGameTwoPlayersMatches.Instance;
 		}
 	}
 }
