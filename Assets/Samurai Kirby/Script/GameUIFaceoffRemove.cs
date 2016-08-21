@@ -22,16 +22,7 @@ public class GameUIFaceoffRemove : MonoBehaviour {
 		p2FaceRT = p2Face.GetComponent<RectTransform>();
 	}
 		
-	void Start () {
-		//Engage();
-		//DisEngage();
-	}
-
 	void Update () {
-		if (Input.GetKeyDown(KeyCode.Alpha3)) {
-			Engage(2);
-		}
-
 		if (elapsedTime > duration) {
 			return;
 		}

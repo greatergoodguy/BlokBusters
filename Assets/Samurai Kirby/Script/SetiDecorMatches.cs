@@ -8,10 +8,16 @@ public class SetiDecorMatches : SeTi_Base {
 	int matchesTotal;
 	int matchesPlayed;
 
+	int winsP1;
+	int winsP2;
+	float bestTime = float.MaxValue;
+
 	public SetiDecorMatches(SetiGame_Base setiGame,int matchesTotal) {
 		this.setiGame = setiGame;
 		this.matchesTotal = matchesTotal;
 		matchesPlayed = 0;
+		winsP1 = 0;
+		winsP2 = 0;
 	}
 
 	public override void Enter() {
@@ -38,6 +44,17 @@ public class SetiDecorMatches : SeTi_Base {
 		GameUI gameUI = ActorGameContainer.Instance.GetComponentInChildren<GameUI>();
 		gameUI.HideText();
 
+		if (setiGame.DidWinP1) {
+			winsP1++;
+		}
+		else if (setiGame.DidWinP2) {
+			winsP2++;
+		}
+
+		if (!setiGame.IsPrematureWin && setiGame.getTime() < bestTime) {
+			bestTime = setiGame.getTime();
+		}
+
 		setiGame.Exit();
 	}
 
@@ -54,6 +71,7 @@ public class SetiDecorMatches : SeTi_Base {
 		if (matchesPlayed < matchesTotal) { 
 			return this;} 
 		else { 
-			return SetiTitleScreen.Instance;}
+			//return SetiTitleScreen.Instance;}
+			return new SetiResultsScreen(bestTime, winsP1, winsP2);}
 	}
 }

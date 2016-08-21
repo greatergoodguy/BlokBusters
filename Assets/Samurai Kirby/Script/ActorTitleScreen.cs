@@ -21,6 +21,8 @@ public class ActorTitleScreen : MonoBehaviour {
 		if (goPanel == null) {
 			goPanel = new GameObject();
 		}
+
+		NumMatches = 1;
 	}
 
 	public void Show() {

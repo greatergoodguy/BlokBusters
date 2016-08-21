@@ -25,11 +25,16 @@ public class SetiGameFaceOff : SeTi_Base {
 		uiFaceoff = gameContainer.GetComponentInChildren<GameUIFaceoff>();
 		uiFaceoffRemove = gameContainer.GetComponentInChildren<GameUIFaceoffRemove>();
 
+		Reset();
+	}
+
+	void Reset() {
 		isFinished = false;
 
-		ActorGame game = gameContainer.GetComponentInChildren<ActorGame>();
+		ActorGame game = ActorGameContainer.Instance.GetComponentInChildren<ActorGame>();
 		game.Reset();
 
+		ActorMasterMono.Instance.StopAllCoroutines();
 		ActorMasterMono.Instance.StartCoroutine(FaceOff());
 	}
 
@@ -55,9 +60,8 @@ public class SetiGameFaceOff : SeTi_Base {
 
 
 	public override void Update() {
-		if (Input.GetKeyDown(KeyCode.Alpha1)) {
-			ActorMasterMono.Instance.StopAllCoroutines();
-			ActorMasterMono.Instance.StartCoroutine(FaceOff());
+		if (Input.GetKeyDown(KeyCode.R)) {
+			Reset();
 		}
 	}
 

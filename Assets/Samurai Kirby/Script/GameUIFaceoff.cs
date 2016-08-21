@@ -35,14 +35,6 @@ public class GameUIFaceoff : MonoBehaviour {
 	}
 
 	void Update () {
-		if (Input.GetKeyDown(KeyCode.Alpha1)) {
-			Toolbox.Log("p1FaceRT.rect.width: " + p1FaceRT.rect.width);
-		}
-
-		if (Input.GetKeyDown(KeyCode.Alpha2)) {
-			Engage(2);
-		}
-
 		if (elapsedTime > duration) {
 			return;
 		}

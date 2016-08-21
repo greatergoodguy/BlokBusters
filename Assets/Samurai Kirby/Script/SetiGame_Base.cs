@@ -5,6 +5,10 @@ public abstract class SetiGame_Base : SeTi_Base {
 
 	ActorGameContainer gameContainer;
 
+	public bool DidWinP1 { get; private set; }
+	public bool DidWinP2 { get; private set; }
+	public bool IsPrematureWin { get; private set; }
+
 	protected GameUITimerAnticipation uiTimerAnticipation;
 	private GameUITimerAction uiTimerAction;
 	private  GameUIExclamation uiExclamation;
@@ -13,6 +17,10 @@ public abstract class SetiGame_Base : SeTi_Base {
 
 	bool hasGameOverCoroutineStarted = false;
 	bool isFinished = false;
+
+	public float getTime() {
+		return uiTimerAction.GetAgeAction();
+	}
 
 	public override void Enter () {
 		ActorGame.Instance.Reset();
@@ -25,12 +33,12 @@ public abstract class SetiGame_Base : SeTi_Base {
 		uiExclamation = gameContainer.GetComponentInChildren<GameUIExclamation>();
 		game = gameContainer.GetComponentInChildren<ActorGame>();
 
-		Init();
+		Reset();
 	}
 
 	public override void Update() {
 		if (Input.GetKeyDown(KeyCode.R)) {
-			Init();
+			Reset();
 		}
 
 		if (hasGameOverCoroutineStarted) {
@@ -38,9 +46,11 @@ public abstract class SetiGame_Base : SeTi_Base {
 		}
 
 		if(!uiTimerAnticipation.IsFinished && WinConditionPlayerOne()) {
+			IsPrematureWin = true;
 			OnWinPlayerTwo();
 		}
 		if(!uiTimerAnticipation.IsFinished && WinConditionPlayerTwo()) {
+			IsPrematureWin = true;
 			OnWinPlayerOne();
 		}
 		if(uiTimerAnticipation.IsFinished && WinConditionPlayerOne()) {
@@ -55,6 +65,7 @@ public abstract class SetiGame_Base : SeTi_Base {
 	protected abstract bool WinConditionPlayerTwo();
 
 	private void OnWinPlayerTwo() {
+		DidWinP2 = true;
 		ActorSFX.Instance.Stop(4);
 		ActorSFX.Instance.Play(2);
 		uiTimerAnticipation.Pause();
@@ -65,6 +76,7 @@ public abstract class SetiGame_Base : SeTi_Base {
 	}
 
 	private void OnWinPlayerOne() {
+		DidWinP1 = true;
 		ActorSFX.Instance.Stop(4);
 		ActorSFX.Instance.Play(1);
 		uiTimerAnticipation.Pause();
@@ -97,8 +109,12 @@ public abstract class SetiGame_Base : SeTi_Base {
 		return SetiTitleScreen.Instance;
 	}
 
-	void Init() {
+	void Reset() {
 		ActorMasterMono.Instance.StopAllCoroutines();
+
+		DidWinP1 = false;
+		DidWinP2 = false;
+		IsPrematureWin = false;
 
 		hasGameOverCoroutineStarted = false;
 		isFinished = false;
