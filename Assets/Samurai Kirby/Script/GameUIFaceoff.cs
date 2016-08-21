@@ -13,7 +13,7 @@ public class GameUIFaceoff : MonoBehaviour {
 	RectTransform p2FaceRT;
 	RectTransform p2LineRT;
 
-	float DURATION_IN_SEC = 2.0f;
+	float duration = 2.0f;
 	float rectWidth;
 
 	float elapsedTime = 0;
@@ -31,7 +31,6 @@ public class GameUIFaceoff : MonoBehaviour {
 	}
 		
 	void Start () {
-		//Engage();
 		DisEngage();
 	}
 
@@ -41,16 +40,16 @@ public class GameUIFaceoff : MonoBehaviour {
 		}
 
 		if (Input.GetKeyDown(KeyCode.Alpha2)) {
-			Engage();
+			Engage(2);
 		}
 
-		if (elapsedTime > DURATION_IN_SEC) {
+		if (elapsedTime > duration) {
 			return;
 		}
 
 
 		elapsedTime += Time.deltaTime;
-		float fraction = elapsedTime / DURATION_IN_SEC;
+		float fraction = elapsedTime / duration;
 
 		{
 			Vector3 tempPosition = p1FaceRT.position;
@@ -74,14 +73,42 @@ public class GameUIFaceoff : MonoBehaviour {
 		}
 	}
 
-	void DisEngage() {
+	public void DisEngage() {
 		p1Face.Hide();
 		p1Line.Hide();
 		p2Face.Hide();
 		p2Line.Hide();
 	}
 
-	void Engage() {
+	public void Engage(float duration) {
+		this.duration = duration;
+
+		{
+			Vector3 tempPosV3 = p1FaceRT.position;
+			tempPosV3.x = 0;
+			p1FaceRT.position = tempPosV3;
+
+			Vector2 tempPosV2 = p1FaceRT.anchoredPosition;
+			tempPosV2.y = 0;
+			p1FaceRT.anchoredPosition = tempPosV2;
+		}
+		{
+			Vector3 tempPosition = p1LineRT.position;
+			tempPosition.x = 1*rectWidth / 2;
+			p1LineRT.position = tempPosition;
+		}
+		{
+			Vector3 tempPosition = p2FaceRT.position;
+			tempPosition.x = rectWidth;
+			tempPosition.y = 0;
+			p2FaceRT.position = tempPosition;
+		}
+		{
+			Vector3 tempPosition = p2LineRT.position;
+			tempPosition.x = 1*rectWidth / 2;
+			p2LineRT.position = tempPosition;
+		}
+
 		p1Face.Show();
 		p1Line.Show();
 		p2Face.Show();

@@ -11,19 +11,19 @@ public class GameUIFader : MonoBehaviour {
 	
 	}
 
-	public void Fade() {
+	public void Fade(float duration) {
 		GameObject goBlack = transform.Find("Black Overlay").gameObject;
 
 		Destroy(goBlack.GetComponent<GeneFadeAlpha>());
 		GeneFadeAlpha gene = goBlack.AddComponent<GeneFadeAlpha>();
-		gene.Init(1.5f, 0.0f, 0.6f);
+		gene.Init(duration, 0.0f, 0.6f);
 	}
 
-	public void UnFade() {
+	public void UnFade(float duration) {
 		GameObject goBlack = transform.Find("Black Overlay").gameObject;
 
 		Destroy(goBlack.GetComponent<GeneFadeAlpha>());
 		GeneFadeAlpha gene = goBlack.AddComponent<GeneFadeAlpha>();
-		gene.Init(1.5f, 0.6f, 0.0f);
+		gene.Init(duration, 0.6f, 0.0f);
 	}
 }
