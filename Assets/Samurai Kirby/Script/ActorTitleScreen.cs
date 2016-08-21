@@ -17,6 +17,9 @@ public class ActorTitleScreen : MonoBehaviour {
 	void Awake() {
 		Instance = this;
 		goPanel = transform.Find("Panel").gameObject;
+		if (goPanel == null) {
+			goPanel = new GameObject();
+		}
 	}
 
 	public void Show() {
