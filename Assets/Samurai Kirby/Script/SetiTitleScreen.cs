@@ -41,23 +41,11 @@ public class SetiTitleScreen : SeTi_Base {
 	}
 
 	public override SeTi_Base GetNextSeason () {
-//		if (isOnePlayerPressed) {
-//			SetiGameOnePlayerMatches.Instance.Reset(titleScreen.NumMatches);
-//			return SetiGameOnePlayerMatches.Instance;
-//		} else {
-//			SetiGameTwoPlayersMatches.Instance.Reset(titleScreen.NumMatches);
-//			return SetiGameTwoPlayersMatches.Instance;
-//		}
-
 		if (isOnePlayerPressed) {
-			SetiGameOnePlayerMatches.Instance.Reset(titleScreen.NumMatches);
-			SetiGameFaceOff.Instance.Init(SetiGameOnePlayerMatches.Instance);
-
+			SetiGameFaceOff.Instance.Init(new SetiDecorMatches(SetiGameOnePlayerMatches.Instance, titleScreen.NumMatches));
 			return SetiGameFaceOff.Instance;
 		} else {
-			SetiGameTwoPlayersMatches.Instance.Reset(titleScreen.NumMatches);
-			SetiGameFaceOff.Instance.Init(SetiGameTwoPlayersMatches.Instance);
-
+			SetiGameFaceOff.Instance.Init(new SetiDecorMatches(SetiGameTwoPlayersMatches.Instance, titleScreen.NumMatches));
 			return SetiGameFaceOff.Instance;
 		}
 	}

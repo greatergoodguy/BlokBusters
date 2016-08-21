@@ -25,12 +25,12 @@ public abstract class SetiGame_Base : SeTi_Base {
 		uiExclamation = gameContainer.GetComponentInChildren<GameUIExclamation>();
 		game = gameContainer.GetComponentInChildren<ActorGame>();
 
-		Reset();
+		Init();
 	}
 
 	public override void Update() {
 		if (Input.GetKeyDown(KeyCode.R)) {
-			Reset();
+			Init();
 		}
 
 		if (hasGameOverCoroutineStarted) {
@@ -97,7 +97,7 @@ public abstract class SetiGame_Base : SeTi_Base {
 		return SetiTitleScreen.Instance;
 	}
 
-	void Reset() {
+	void Init() {
 		ActorMasterMono.Instance.StopAllCoroutines();
 
 		hasGameOverCoroutineStarted = false;

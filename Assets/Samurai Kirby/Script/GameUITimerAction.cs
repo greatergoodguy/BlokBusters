@@ -40,7 +40,7 @@ public class GameUITimerAction : MonoBehaviour {
 		}
 
 		ageAction += Time.deltaTime;
-		textActionTimer.text = ageAction.ToString();
+		textActionTimer.text = ageAction.ToString("F2");
 	}
 
 	public void Begin() {
@@ -60,6 +60,6 @@ public class GameUITimerAction : MonoBehaviour {
 		IsFinished = true;
 		IsPaused = false;
 		ageAction = 0;
-		textActionTimer.text = ageAction.ToString();
+		textActionTimer.text = ageAction.ToString("F2");
 	}
 }

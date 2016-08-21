@@ -1,15 +1,22 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class SetiGameTwoPlayersMatches : SetiGameTwoPlayers {
+public class SetiDecorMatches : SeTi_Base {
 
-	public static SetiGameTwoPlayersMatches Instance = new SetiGameTwoPlayersMatches();
+	SetiGame_Base setiGame;
 
 	int matchesTotal;
 	int matchesPlayed;
 
+	public SetiDecorMatches(SetiGame_Base setiGame,int matchesTotal) {
+		this.setiGame = setiGame;
+		this.matchesTotal = matchesTotal;
+		matchesPlayed = 0;
+	}
+
 	public override void Enter() {
-		base.Enter();
+		setiGame.Enter();
+
 		matchesPlayed++;
 
 		GameUI gameUI = ActorGameContainer.Instance.GetComponentInChildren<GameUI>();
@@ -23,10 +30,19 @@ public class SetiGameTwoPlayersMatches : SetiGameTwoPlayers {
 		}
 	}
 
+	public override void Update() {
+		setiGame.Update();
+	}
+
 	public override void Exit() {
 		GameUI gameUI = ActorGameContainer.Instance.GetComponentInChildren<GameUI>();
 		gameUI.HideText();
-		base.Exit();
+
+		setiGame.Exit();
+	}
+
+	public override bool IsFinished() {
+		return setiGame.IsFinished();
 	}
 
 	public void Init(int matchesTotal) {
