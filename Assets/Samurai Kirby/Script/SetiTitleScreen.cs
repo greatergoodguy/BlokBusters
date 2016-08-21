@@ -26,6 +26,10 @@ public class SetiTitleScreen : SeTi_Base {
 			isFinished = true;
 			isOnePlayerPressed = false;
 		};
+
+		titleScreen.actionNumMatches += () => {
+			ActorSFX.Instance.Play(0);
+		};
 	}
 
 	public override void Exit() {

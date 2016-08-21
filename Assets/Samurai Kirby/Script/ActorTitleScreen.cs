@@ -13,6 +13,7 @@ public class ActorTitleScreen : MonoBehaviour {
 
 	public event Action actionOnePlayer = () => {};
 	public event Action actionTwoPlayers = () => {};
+	public event Action actionNumMatches = () => {};
 
 	void Awake() {
 		Instance = this;
@@ -39,6 +40,8 @@ public class ActorTitleScreen : MonoBehaviour {
 	}
 
 	public void ButtonNumMatches(int numMatches) {
+		actionNumMatches.Invoke();
+
 		NumMatches = numMatches;
 
 		Text text = transform.Find("Panel/Panel Buttons/Matches Text").GetComponent<Text>();
