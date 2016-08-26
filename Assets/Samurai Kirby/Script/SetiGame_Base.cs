@@ -10,7 +10,7 @@ public abstract class SetiGame_Base : SeTi_Base {
 	public bool IsPrematureWin { get; private set; }
 
 	protected GameUITimerAnticipation uiTimerAnticipation;
-	private GameUITimerAction uiTimerAction;
+	protected GameUITimerAction uiTimerAction;
 	private  GameUIExclamation uiExclamation;
 
 	ActorGame game;

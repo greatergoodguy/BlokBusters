@@ -42,7 +42,8 @@ public class SetiTitleScreen : SeTi_Base {
 
 	public override SeTi_Base GetNextSeason () {
 		if (isOnePlayerPressed) {
-			SetiGameFaceOff.Instance.Init(new SetiDecorMatches(SetiGameOnePlayerMatches.Instance, titleScreen.NumMatches));
+			//SetiGameFaceOff.Instance.Init(new SetiDecorMatches(SetiGameOnePlayerMatches.Instance, titleScreen.NumMatches));
+			SetiGameFaceOff.Instance.Init(new SetiDecorMatchesForOnePlayer(SetiGameOnePlayerMatches.Instance, titleScreen.NumMatches));
 			return SetiGameFaceOff.Instance;
 		} else {
 			SetiGameFaceOff.Instance.Init(new SetiDecorMatches(SetiGameTwoPlayersMatches.Instance, titleScreen.NumMatches));

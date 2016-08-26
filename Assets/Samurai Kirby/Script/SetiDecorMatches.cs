@@ -5,8 +5,8 @@ public class SetiDecorMatches : SeTi_Base {
 
 	SetiGame_Base setiGame;
 
-	int matchesTotal;
-	int matchesPlayed;
+	protected int matchesTotal;
+	protected int matchesPlayed;
 
 	int winsP1;
 	int winsP2;
@@ -27,10 +27,8 @@ public class SetiDecorMatches : SeTi_Base {
 
 		GameUI gameUI = ActorGameContainer.Instance.GetComponentInChildren<GameUI>();
 		if (matchesTotal == 1) {
-			Toolbox.Log("if (matchesTotal == 1)");
 			gameUI.HideText();
 		} else {
-			Toolbox.Log("else");
 			gameUI.SetText("Round " + matchesPlayed + " of " + matchesTotal);
 			gameUI.ShowText();
 		}

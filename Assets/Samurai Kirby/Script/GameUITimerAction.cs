@@ -9,9 +9,10 @@ public class GameUITimerAction : MonoBehaviour {
 	public bool IsFinished { get; private set;}
 
 	Text textActionTimer;
-	float MAX_AGE = 2.0f;
+	float MAX_AGE = 10.0f;
 	float ageAction = 0;
 
+	public event Action actionOnStart = () => {};
 	public event Action actionOnFinished = () => {};
 
 	void Awake () {
@@ -46,6 +47,7 @@ public class GameUITimerAction : MonoBehaviour {
 	public void Begin() {
 		IsFinished = false;
 		IsPaused = false;
+		actionOnStart.Invoke();
 	}
 
 	public void Pause() {
