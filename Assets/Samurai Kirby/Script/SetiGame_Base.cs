@@ -17,6 +17,7 @@ public abstract class SetiGame_Base : SeTi_Base {
 
 	bool hasGameOverCoroutineStarted = false;
 	bool isFinished = false;
+	bool matchOver = false;
 
 	public float getTime() {
 		return uiTimerAction.GetAgeAction();
@@ -41,7 +42,7 @@ public abstract class SetiGame_Base : SeTi_Base {
 			Reset();
 		}
 
-		if (isFinished) {
+		if (matchOver) {
 			return;
 		}
 
@@ -50,21 +51,29 @@ public abstract class SetiGame_Base : SeTi_Base {
 		}
 
 		if(!uiTimerAnticipation.IsFinished && WinConditionPlayerOne()) {
+			matchOver = true;
+
 			IsPrematureWin = true;
 			Toolbox.Log("Update() - if(!uiTimerAnticipation.IsFinished && WinConditionPlayerOne())");
 			OnWinPlayerTwo();
 			game.OnWinPlayerTwoByPremature();
 		}
 		if(!uiTimerAnticipation.IsFinished && WinConditionPlayerTwo()) {
+			matchOver = true;
+
 			IsPrematureWin = true;
 			OnWinPlayerOne();
 			game.OnWinPlayerOneByPremature();
 		}
 		if(uiTimerAnticipation.IsFinished && WinConditionPlayerOne()) {
+			matchOver = true;
+
 			OnWinPlayerOne();
 			game.OnWinPlayerOne();
 		}
 		if(uiTimerAnticipation.IsFinished && WinConditionPlayerTwo()) {
+			matchOver = true;
+
 			Toolbox.Log("Update() - if(uiTimerAnticipation.IsFinished && WinConditionPlayerTwo())");
 			OnWinPlayerTwo();
 			game.OnWinPlayerTwo();
@@ -136,6 +145,7 @@ public abstract class SetiGame_Base : SeTi_Base {
 
 		hasGameOverCoroutineStarted = false;
 		isFinished = false;
+		matchOver = false;
 
 		uiTimerAnticipation.Reset(); 
 		uiTimerAction.Reset();
