@@ -40,6 +40,7 @@ public class ActorResultsScreen : MonoBehaviour {
 		// Best Time
 		Text textBestTime = transform.Find("Panel/Panel/Text Best Time").GetComponent<Text>();
 		textBestTime.text = "Best Time: " + bestTime.ToString(Constants.TIME_FORMAT) + " seconds";
+		Toolbox.Log("bestTime: " + bestTime);
 
 		// Winner
 		Text textWinner = transform.Find("Panel/Panel/Text Winner").GetComponent<Text>();

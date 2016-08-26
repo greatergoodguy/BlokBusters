@@ -25,6 +25,9 @@ public class SetiGameFaceOff : SeTi_Base {
 		uiFaceoff = gameContainer.GetComponentInChildren<GameUIFaceoff>();
 		uiFaceoffRemove = gameContainer.GetComponentInChildren<GameUIFaceoffRemove>();
 
+		gameContainer.GetComponentInChildren<GameUITimerAnticipation>().Reset();
+		gameContainer.GetComponentInChildren<GameUITimerAction>().Reset();
+
 		Reset();
 	}
 

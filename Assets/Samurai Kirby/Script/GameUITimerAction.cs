@@ -9,7 +9,7 @@ public class GameUITimerAction : MonoBehaviour {
 	public bool IsFinished { get; private set;}
 
 	Text textActionTimer;
-	float MAX_AGE = 1.5f;
+	float MAX_AGE = 2.0f;
 	float ageAction = 0;
 
 	public event Action actionOnFinished = () => {};

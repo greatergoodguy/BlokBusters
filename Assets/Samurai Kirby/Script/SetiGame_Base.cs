@@ -48,16 +48,19 @@ public abstract class SetiGame_Base : SeTi_Base {
 		if(!uiTimerAnticipation.IsFinished && WinConditionPlayerOne()) {
 			IsPrematureWin = true;
 			OnWinPlayerTwo();
+			game.OnWinPlayerTwoByPremature();
 		}
 		if(!uiTimerAnticipation.IsFinished && WinConditionPlayerTwo()) {
-			IsPrematureWin = true;
 			OnWinPlayerOne();
+			game.OnWinPlayerOneByPremature();
 		}
 		if(uiTimerAnticipation.IsFinished && WinConditionPlayerOne()) {
 			OnWinPlayerOne();
+			game.OnWinPlayerOne();
 		}
 		if(uiTimerAnticipation.IsFinished && WinConditionPlayerTwo()) {
 			OnWinPlayerTwo();
+			game.OnWinPlayerTwo();
 		}
 	}
 
@@ -71,7 +74,6 @@ public abstract class SetiGame_Base : SeTi_Base {
 		uiTimerAnticipation.Pause();
 		uiTimerAction.Pause();
 		uiExclamation.Hide();
-		game.OnLose();
 		ActorMasterMono.Instance.StartCoroutine(CoroutineGameOver(3));
 	}
 
@@ -82,7 +84,15 @@ public abstract class SetiGame_Base : SeTi_Base {
 		uiTimerAnticipation.Pause();
 		uiTimerAction.Pause();
 		uiExclamation.Hide();
-		game.OnWin();
+		ActorMasterMono.Instance.StartCoroutine(CoroutineGameOver(3));
+	}
+
+	private void OnWinNoone() {
+		ActorSFX.Instance.Stop(4);
+		ActorSFX.Instance.Play(6);
+		uiTimerAnticipation.Pause();
+		uiTimerAction.Pause();
+		uiExclamation.Hide();
 		ActorMasterMono.Instance.StartCoroutine(CoroutineGameOver(3));
 	}
 
@@ -133,7 +143,8 @@ public abstract class SetiGame_Base : SeTi_Base {
 		};
 
 		uiTimerAction.actionOnFinished += () => {
-			OnWinPlayerTwo();
+			OnWinNoone();
+			game.OnWinNoone();
 		};
 
 		ActorSFX.Instance.Stop(4);

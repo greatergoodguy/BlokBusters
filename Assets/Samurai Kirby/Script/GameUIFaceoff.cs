@@ -75,10 +75,12 @@ public class GameUIFaceoff : MonoBehaviour {
 	public void Engage(float duration) {
 		this.duration = duration;
 
+		Vector3 nowhere = new Vector3(int.MaxValue, int.MaxValue, int.MaxValue);
+
 		{
-			Vector3 tempPosV3 = p1FaceRT.position;
-			tempPosV3.x = 0;
-			p1FaceRT.position = tempPosV3;
+//			Vector3 tempPosV3 = p1FaceRT.position;
+//			tempPosV3.x = 0;
+//			p1FaceRT.position = tempPosV3;
 
 			Vector2 tempPosV2 = p1FaceRT.anchoredPosition;
 			tempPosV2.y = 0;
@@ -90,10 +92,15 @@ public class GameUIFaceoff : MonoBehaviour {
 			p1LineRT.position = tempPosition;
 		}
 		{
-			Vector3 tempPosition = p2FaceRT.position;
-			tempPosition.x = rectWidth;
-			tempPosition.y = 0;
-			p2FaceRT.position = tempPosition;
+//			Vector3 tempPosition = p2FaceRT.position;
+//			tempPosition.x = rectWidth;
+//			tempPosition.y = 0;
+//			p2FaceRT.position = tempPosition;
+
+			Vector2 tempPosV2 = p2FaceRT.anchoredPosition;
+			tempPosV2.x = rectWidth;
+			tempPosV2.y = 0;
+			p2FaceRT.anchoredPosition = tempPosV2;
 		}
 		{
 			Vector3 tempPosition = p2LineRT.position;

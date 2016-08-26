@@ -10,7 +10,7 @@ public class SetiDecorMatches : SeTi_Base {
 
 	int winsP1;
 	int winsP2;
-	float bestTime = float.MaxValue;
+	float bestTime = 2.0f;
 
 	public SetiDecorMatches(SetiGame_Base setiGame,int matchesTotal) {
 		this.setiGame = setiGame;
