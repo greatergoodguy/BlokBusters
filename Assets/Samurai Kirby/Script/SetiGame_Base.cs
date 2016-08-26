@@ -41,16 +41,22 @@ public abstract class SetiGame_Base : SeTi_Base {
 			Reset();
 		}
 
+		if (isFinished) {
+			return;
+		}
+
 		if (hasGameOverCoroutineStarted) {
 			return;
 		}
 
 		if(!uiTimerAnticipation.IsFinished && WinConditionPlayerOne()) {
 			IsPrematureWin = true;
+			Toolbox.Log("Update() - if(!uiTimerAnticipation.IsFinished && WinConditionPlayerOne())");
 			OnWinPlayerTwo();
 			game.OnWinPlayerTwoByPremature();
 		}
 		if(!uiTimerAnticipation.IsFinished && WinConditionPlayerTwo()) {
+			IsPrematureWin = true;
 			OnWinPlayerOne();
 			game.OnWinPlayerOneByPremature();
 		}
@@ -59,6 +65,7 @@ public abstract class SetiGame_Base : SeTi_Base {
 			game.OnWinPlayerOne();
 		}
 		if(uiTimerAnticipation.IsFinished && WinConditionPlayerTwo()) {
+			Toolbox.Log("Update() - if(uiTimerAnticipation.IsFinished && WinConditionPlayerTwo())");
 			OnWinPlayerTwo();
 			game.OnWinPlayerTwo();
 		}
@@ -68,6 +75,7 @@ public abstract class SetiGame_Base : SeTi_Base {
 	protected abstract bool WinConditionPlayerTwo();
 
 	private void OnWinPlayerTwo() {
+		Toolbox.Log("OnWinPlayerTwo()");
 		DidWinP2 = true;
 		ActorSFX.Instance.Stop(4);
 		ActorSFX.Instance.Play(2);
