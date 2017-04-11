@@ -24,6 +24,6 @@ public class SetiBigBang : SeTi_Base {
 
 	public override SeTi_Base GetNextSeason () {
 		return SetiTitleScreen.Instance;
-		//return SetiGameOnePlayer_Dep.Instance;
+		//return SetiGameFaceOff.Instance;
 	}
 }

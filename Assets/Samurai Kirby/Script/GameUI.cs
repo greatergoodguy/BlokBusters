@@ -1,15 +1,29 @@
 ﻿using UnityEngine;
+using UnityEngine.UI;
 using System.Collections;
 
 public class GameUI : MonoBehaviour {
 
-	// Use this for initialization
+	Text text;
+
+	void Awake() {
+		text = transform.Find("Panel/Text").GetComponent<Text>();
+	}
+		
 	void Start () {
-	
+		HideText();
+	}
+
+	public void SetText(string message) {
+		text.text = message;
+	}
+
+	public void ShowText() {
+		text.Show();
+	}
+
+	public void HideText() {
+		text.Hide();
 	}
 	
-	// Update is called once per frame
-	void Update () {
-	
-	}
 }
